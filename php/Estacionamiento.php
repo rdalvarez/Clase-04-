@@ -7,7 +7,7 @@ recibe por parametro $patente
 */
 class Estacionamiento
 {
-	static function Guardar($patente)
+	public static function Guardar($patente)
 	{
 		$archivo = fopen("Estacionados.txt", "a"); //creo el archivo
 
@@ -33,12 +33,19 @@ class Estacionamiento
 		while (!feof($archivo)) { //hasta que no este en el ultimo renglon del archivo
 			$renglon = fgets($archivo); //saco el renglon
 
-			$listadoDeAutos[] = $renglon; //lo paso al string
+			$auto = explode("=>", $renglon);//devuelve un array
+
+			$listadoDeAutos[] = $auto; //lo paso al string
 		}
 
 		fclose($archivo);
 
 		return $listadoDeAutos;
-	} 
+	}
+
+	public static function Sacar()
+	{
+		$miListadoEstacionado = Estacionamiento::Leer();
+	}
 }
 ?>
