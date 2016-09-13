@@ -11,7 +11,7 @@ class Estacionamiento
 	{
 		$archivo = fopen("Estacionados.txt", "a"); //creo el archivo
 
-		$ahora = date("Y-m-d H-i-s");
+		$ahora = date("Y-m-d H:i:s");
 
 		$renglon = $patente . "=>" . $ahora . "\n";
 
@@ -43,9 +43,22 @@ class Estacionamiento
 		return $listadoDeAutos;
 	}
 
-	public static function Sacar()
+	public static function Sacar($patente)
 	{
 		$miListadoEstacionado = Estacionamiento::Leer();
+
+		foreach ($miListadoEstacionado as $auto) {
+			if ($patente == $auto[0]) {
+				$ahora = date("Y-m-d H:i:s"); //La hora tiene que ser con ":" sino no sirve el strotime
+				$inicio=$auto[1];
+				$diferencia = strtotime($ahora) - strtotime($inicio); //saco la diferencia de tiempo
+				//var_dump( $diferencia);
+				//echo "<br> ($ahora) ";
+				//var_dump($ahora);
+				//echo "<br>". strtotime($inicio);
+				echo "Tiempo transcurrido: ". $diferencia;
+			}
+		}
 	}
 }
 ?>
